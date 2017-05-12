@@ -51,16 +51,11 @@ class awscli (
   $install_pip      = true,
   $proxy            = $awscli::params::proxy,
 ) inherits awscli::params {
-  class { 'awscli::deps':
-    proxy => $proxy,
+
+  class { '::python':
+    pip => true,
   }
 
-  package { 'awscli':
-    ensure   => $version,
-    provider => 'pip',
-    require  => [
-      Package[$pkg_pip],
-      Class['awscli::deps'],
-    ],
-  }
+  python::pip { 'awscli': ensure   => $version, }
+
 }
