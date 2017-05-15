@@ -52,10 +52,7 @@ class awscli (
   $proxy            = $awscli::params::proxy,
 ) inherits awscli::params {
 
-  class { '::python':
-    pip => true,
-  }
-
+  contain ::python
   python::pip { 'awscli': ensure   => $version, }
 
 }
